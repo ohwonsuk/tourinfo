@@ -20,6 +20,7 @@ const CampgroundSchema = new Schema({
 });
 
 // 캠핑장 삭제시 등록된 리뷰도 같이 삭제하기 위한 미들웨어 사용
+// 삭제한 데이터를 문서 형태로 전달함
 CampgroundSchema.post("findOneAndDelete", async function (doc) {
   if (doc) {
     await Review.deleteMany({
