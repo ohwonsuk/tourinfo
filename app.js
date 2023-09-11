@@ -7,10 +7,13 @@ const flash = require("connect-flash");
 const { campgroundSchema, reviewSchema } = require("./schema.js");
 const ExpressError = require("./utils/ExpressError");
 const methodOverride = require("method-override");
+const passort = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
 
-const Review = require("./models/review");
-const campgrounds = require("./routes/campgrounds.js");
-const reviews = require("./routes/reviews.js");
+const userRoutes = require("./routes/users.js");
+const campgroundRoutes = require("./routes/campgrounds.js");
+const reviewRoutes = require("./routes/reviews.js");
 
 mongoose.connect("mongodb://127.0.0.1:27017/peter-camp", {
   useNewUrlParser: true,
@@ -47,14 +50,22 @@ const sesseionConfig = {
 app.use(session(sesseionConfig));
 app.use(flash());
 
+app.use(passort.initialize());
+app.use(passort.session());
+passort.use(new LocalStrategy(User.authenticate()));
+
+passort.serializeUser(User.serializeUser());
+passort.deserializeUser(User.deserializeUser());
+
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   next();
 });
 
-app.use("/campgrounds", campgrounds);
-app.use("/campgrounds/:id/reviews", reviews);
+app.use("/", userRoutes);
+app.use("/campgrounds", campgroundRoutes);
+app.use("/campgrounds/:id/reviews", reviewRoutes);
 
 app.get("/", (req, res) => {
   res.render("home");
