@@ -57,7 +57,11 @@ passort.use(new LocalStrategy(User.authenticate()));
 passort.serializeUser(User.serializeUser());
 passort.deserializeUser(User.deserializeUser());
 
+// req.locals 요청-응답 사이클에서 데이터를 애플리케이션에 전달할 수 있는 오브젝트로
+// 이 오브젝트로 저장된 변수는 템플릿 및 다른 미들웨어 함수가 접근할 수 있음.
+// req.user에는 passort에서 지원 : 사용자 id, username, email 객체정보 전달됨.
 app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   next();
