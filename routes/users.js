@@ -35,7 +35,6 @@ router.get("/login", (req, res) => {
 
 router.post(
   "/login",
-  // use the storeReturnTo middleware to save the returnTo value from session to res.locals
   storeReturnTo,
   passport.authenticate("local", {
     failureFlash: true,
@@ -43,10 +42,8 @@ router.post(
   }),
   (req, res) => {
     req.flash("success", "Welcome back!");
-    console.log(res.locals.returnTo);
     const redirectUrl = res.locals.returnTo || "/campgrounds";
-    console.log(req.session.returnTo);
-    // update this line to use res.locals.returnTo now
+    console.log("rediretUrl", redirectUrl);
     res.redirect(redirectUrl);
   }
 );
