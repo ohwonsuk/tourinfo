@@ -8,16 +8,22 @@ const {
 const campgrounds = require("../controllers/campgrounds.js");
 const Campground = require("../models/campground");
 const catchAsync = require("../utils/catchAsync");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 
 // route를 이용해 동일 경로의 method를 묶을 수 있음
 router
   .route("/")
   .get(catchAsync(campgrounds.index))
-  .post(
-    isLoggedIn,
-    validateCampground,
-    catchAsync(campgrounds.createCampground)
-  );
+  .post(upload.array("image"), (req, res) => {
+    console.log(req.body, req.files);
+    res.send("It worked !!!");
+  });
+// .post(
+//   isLoggedIn,
+//   validateCampground,
+//   catchAsync(campgrounds.createCampground)
+// );
 
 router.get("/new", isLoggedIn, campgrounds.renderNewForm);
 
