@@ -9,7 +9,8 @@ const campgrounds = require("../controllers/campgrounds.js");
 const Campground = require("../models/campground");
 const catchAsync = require("../utils/catchAsync");
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const { storage } = require("../cloudinary");
+const upload = multer({ storage });
 
 // route를 이용해 동일 경로의 method를 묶을 수 있음
 router
