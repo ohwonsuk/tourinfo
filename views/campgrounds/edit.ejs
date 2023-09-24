@@ -7,6 +7,7 @@
       method="POST"
       novalidate
       class="validated-form"
+      enctype="multipart/form-data"
     >
       <div class="mb-3">
         <label class="form-label" for="title">Title</label>
@@ -28,18 +29,6 @@
           name="campground[location]"
           id="location"
           value="<%= campground.location %>"
-          required
-        />
-        <div class="valid-feedback">Looks good!</div>
-      </div>
-      <div class="mb-3">
-        <label class="form-label" for="image">Image Url</label>
-        <input
-          class="form-control"
-          type="text"
-          name="campground[image]"
-          id="image"
-          value="<%= campground.image %>"
           required
         />
         <div class="valid-feedback">Looks good!</div>
@@ -74,6 +63,18 @@
 <%= campground.description %></textarea
         >
         <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <div class="input-group mb-3">
+          <input
+            type="file"
+            class="form-control"
+            id="image"
+            name="image"
+            multiple
+          />
+          <label class="input-group-text" for="image">Upload</label>
+        </div>
       </div>
       <div class="mb-3">
         <button class="btn btn-info">Update Campground</button>

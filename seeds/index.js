@@ -25,10 +25,19 @@ const seedDb = async () => {
       author: "64fedca2da777d13091b78e1",
       location: `${cities[random1000].city}, ${cities[random1000].state}`,
       title: `${sample(descriptors)}, ${sample(places)}`,
-      image: "https://source.unsplash.com/collection/483251",
       description:
         "말 시인의 아무 아침이 까닭입니다. 별빛이 까닭이요, 마디씩 책상을 이름과 듯합니다. 별에도 봄이 둘 하나에 있습니다. 멀리 한 이름을 그리고 멀듯이, 라이너 별이 못 하나에 있습니다. 다하지 한 파란 지나고 다 풀이 위에 봅니다. 다 지나가는 이름과, 이름과, 잔디가 남은 까닭입니다. 어머니, 다하지 시인의 별 별이 이름과, 거외다.",
       price,
+      images: [
+        {
+          url: "https://res.cloudinary.com/dc2gmdv7u/image/upload/v1695454433/PeterCamp/vpqtukinljus9no7fqcv.jpg",
+          filename: "PeterCamp/vpqtukinljus9no7fqcv",
+        },
+        {
+          url: "https://res.cloudinary.com/dc2gmdv7u/image/upload/v1695454442/PeterCamp/nbqdyftbwes6vroqtw0h.jpg",
+          filename: "PeterCamp/nbqdyftbwes6vroqtw0h",
+        },
+      ],
     });
     await camp.save();
   }
