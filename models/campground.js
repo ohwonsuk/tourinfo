@@ -2,17 +2,23 @@ const mongoose = require("mongoose");
 const Review = require("./review");
 const Schema = mongoose.Schema;
 
+// https://res.cloudinary.com/dc2gmdv7u/image/upload/w_100/v1695516931/PeterCamp/cml5ugsulnmceo26gz8m.jpg
+
 // one-many 하나의 캠핑장에 여러개 리뷰 추가 가능 반영
 // ref 로 Review 모델의 ObjectId를 참조
 
+const ImageSchema = new Schema({
+  url: String,
+  filename: String,
+});
+
+ImageSchema.virtual("thumbnail").get(function () {
+  return this.url.replace("/upload", "/upload/w_200");
+});
+
 const CampgroundSchema = new Schema({
   title: String,
-  images: [
-    {
-      url: String,
-      filename: String,
-    },
-  ],
+  images: [ImageSchema],
   price: Number,
   description: String,
   location: String,
