@@ -20,6 +20,7 @@ module.exports.createCampground = async (req, res) => {
     .forwardGeocode({
       query: req.body.campground.location,
       limit: 1,
+      language: ["kr"],
     })
     .send();
   const campground = new Campground(req.body.campground);
