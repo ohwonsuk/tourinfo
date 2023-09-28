@@ -47,11 +47,13 @@ app.use(
 );
 
 const sesseionConfig = {
+  name: "session", //cookie에서 connect.sid 대시 표출 이름 지정(보안 목적)
   secret: "thisshouldbeabetterseceret!",
   resave: false,
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
+    // secure: true,  // https 에만 적용
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
     maxAge: 1000 * 60 * 60 * 24 * 7,
   },
