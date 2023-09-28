@@ -8,12 +8,12 @@ const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
 const session = require("express-session");
 const flash = require("connect-flash");
-const { campgroundSchema, reviewSchema } = require("./schema.js");
 const ExpressError = require("./utils/ExpressError");
 const methodOverride = require("method-override");
 const passort = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const mongoSanitize = require("express-mongo-sanitize");
 
 const userRoutes = require("./routes/users.js");
 const campgroundRoutes = require("./routes/campgrounds.js");
@@ -40,6 +40,11 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(
+  mongoSanitize({
+    replaceWith: "_",
+  })
+);
 
 const sesseionConfig = {
   secret: "thisshouldbeabetterseceret!",
@@ -65,6 +70,7 @@ passort.deserializeUser(User.deserializeUser());
 // 이 오브젝트로 저장된 변수는 템플릿 및 다른 미들웨어 함수가 접근할 수 있음.
 // req.user에는 passort에서 지원 : 사용자 id, username, email 객체정보 전달됨.
 app.use((req, res, next) => {
+  console.log(req.query);
   res.locals.currentUser = req.user;
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
