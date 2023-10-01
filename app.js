@@ -15,12 +15,14 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
+const MongoStore = require("connect-mongo");
 
 const userRoutes = require("./routes/users.js");
 const campgroundRoutes = require("./routes/campgrounds.js");
 const reviewRoutes = require("./routes/reviews.js");
+const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/peter-camp"; //
 
-mongoose.connect("mongodb://127.0.0.1:27017/peter-camp", {
+mongoose.connect(dbUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -47,9 +49,24 @@ app.use(
   })
 );
 
+const secret = process.env.SECRET || "thisshouldbeabettersecret!";
+
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  touchAfter: 24 * 60 * 60,
+  crypto: {
+    secret,
+  },
+});
+
+store.on("error", function (e) {
+  console.log("Session Store Error", e);
+});
+
 const sesseionConfig = {
+  store,
   name: "session", //cookie에서 connect.sid 대시 표출 이름 지정(보안 목적)
-  secret: "thisshouldbeabetterseceret!",
+  secret,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -80,7 +97,7 @@ const styleSrcUrls = [
   "https://api.tiles.mapbox.com",
   "https://fonts.googleapis.com",
   "https://use.fontawesome.com",
-  "https://cdn.jsdelivr.net",
+  "https://cdn.jsdelivr.net", // Udemy 강좌에서 누락된 부분
 ];
 const connectSrcUrls = [
   "https://api.mapbox.com",
@@ -146,6 +163,8 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("error", { err });
 });
 
-app.listen(3000, () => {
-  console.log("Serving on port 3000");
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+  console.log(`Serving on port ${port}`);
 });
