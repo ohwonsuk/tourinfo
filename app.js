@@ -51,6 +51,7 @@ app.use(
 
 const secret = process.env.SECRET || "thisshouldbeabettersecret!";
 
+// session 정보 메모리가 아닌 mongodb 저장하기
 const store = MongoStore.create({
   mongoUrl: dbUrl,
   touchAfter: 24 * 60 * 60,
