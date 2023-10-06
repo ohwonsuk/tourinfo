@@ -1,7 +1,7 @@
 <% layout('/layouts/boilerplate') %>
 <link rel="stylesheet" href="/stylesheets/stars.css" />
 
-<!-- 캠핑장 정보 조회, 수정, 삭제 -->
+<!-- 관광지 정보 조회, 수정, 삭제 -->
 <div class="row">
   <div class="col-6">
     <div id="campgroundCarousel" class="carousel slide">
@@ -35,40 +35,44 @@
     </div>
     <div class="card mb-3">
       <div class="card-body">
-        <h5 class="card-title"><%= campground.title %></h5>
-        <p class="card-text"><%= campground.description %></p>
+        <h5 class="card-title"><%= campground.trrsrtNm %></h5>
+        <p class="card-text"><%= campground.trrsrtIntrcn %></p>
       </div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item text-muted"><%= campground.location %></li>
+        <li class="list-group-item text-muted"><%= campground.rdnmadr %></li>
         <li class="list-group-item">
-          Submitted by <%= campground.author.username %>
+          작성자 : <%= campground.author.username %>
         </li>
-        <li class="list-group-item">$<%= campground.price %>/night</li>
+        <li class="list-group-item">
+          [관리기관] <%= campground.institutionNm %>
+        </li>
       </ul>
       <% if (currentUser && campground.author.equals(currentUser._id)) { %>
       <div class="card-body">
         <a
           href="/campgrounds/<%= campground._id %>/edit"
           class="card-link btn btn-warning"
-          >Edit</a
+          >수정하기</a
         >
         <form
           class="d-inline"
           action="/campgrounds/<%= campground._id%>?_method=DELETE"
           method="POST"
         >
-          <button class="btn btn-danger">Delete</button>
+          <button class="btn btn-danger">삭제</button>
         </form>
       </div>
       <% } %>
-      <div class="card-footer text-muted">2 days ago</div>
+      <div class="card-footer text-muted">
+        [작성일자] <%= campground.referenceDate %>
+      </div>
     </div>
   </div>
   <!-- 리뷰입력창 만들기 -->
   <div class="col-6">
     <div id="map"></div>
     <% if (currentUser) { %>
-    <h2>Leave a Review</h2>
+    <h4>리뷰</h4>
     <form
       action="/campgrounds/<%=campground._id %>/reviews"
       method="POST"
@@ -136,7 +140,7 @@
         </fieldset>
       </div>
       <div class="mb-3">
-        <label class="form-label" for="body">Review Text</label>
+        <label class="form-label" for="body">리뷰작성</label>
         <textarea
           class="form-control"
           name="review[body]"
@@ -147,7 +151,7 @@
         ></textarea>
         <div class="valid-feedback">Looks good!</div>
       </div>
-      <button class="btn btn-success">Summit</button>
+      <button class="btn btn-success">저장하기</button>
     </form>
     <% } %> <% for (let review of campground.reviews) { %>
     <div class="card mb-3">
@@ -166,7 +170,7 @@
           action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
           method="POST"
         >
-          <button class="btn btn-sm btn-danger">Delete</button>
+          <button class="btn btn-sm btn-danger">삭제하기</button>
         </form>
         <% } %>
       </div>

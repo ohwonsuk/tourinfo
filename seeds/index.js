@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
-const cities = require("./cities");
+const sights = require("./sights");
 const { descriptors, places } = require("./seedHelpers");
-const Campground = require("../models/campground");
+const Tourinfo = require("../models/campground");
 
-mongoose.connect("mongodb://127.0.0.1:27017/peter-camp", {
+mongoose.connect("mongodb://127.0.0.1:27017/tourinfo", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -14,27 +14,24 @@ db.once("open", () => {
   console.log("Database connected");
 });
 
-const sample = (array) => array[Math.floor(Math.random() * array.length)];
+// const sample = (array) => array[Math.floor(Math.random() * array.length)];
 
 const seedDb = async () => {
-  await Campground.deleteMany({});
-  for (let i = 0; i < 300; i++) {
-    const random1000 = Math.floor(Math.random() * 1000);
-    const price = Math.floor(Math.random() * 20) + 10;
-    const camp = new Campground({
+  await Tourinfo.deleteMany({});
+  for (let i = 0; i < 962; i++) {
+    const tour = new Tourinfo({
       // your user id
-      author: "64fedca2da777d13091b78e1",
-      location: `${cities[random1000].city}, ${cities[random1000].state}`,
-      title: `${sample(descriptors)}, ${sample(places)}`,
-      description:
-        "말 시인의 아무 아침이 까닭입니다. 별빛이 까닭이요, 마디씩 책상을 이름과 듯합니다. 별에도 봄이 둘 하나에 있습니다. 멀리 한 이름을 그리고 멀듯이, 라이너 별이 못 하나에 있습니다. 다하지 한 파란 지나고 다 풀이 위에 봅니다. 다 지나가는 이름과, 이름과, 잔디가 남은 까닭입니다. 어머니, 다하지 시인의 별 별이 이름과, 거외다.",
-      price,
+      author: "652024cc14dbc1902f779cb8",
+      trrsrtNm: sights[i].관광지명,
+      trrsrtSe: sights[i].관광지구분,
+      trrsrtIntrcn: sights[i].관광지소개,
+      rdnmadr: sights[i].소재지도로명주소,
+      lnmadr: sights[i].소재지지번주소,
+      institutionNm: sights[i].관리기관명,
+      referenceDate: sights[i].데이터기준일자,
       geometry: {
         type: "Point",
-        coordinates: [
-          cities[random1000].longitude,
-          cities[random1000].latitude,
-        ],
+        coordinates: [sights[i].경도, sights[i].위도],
       },
       images: [
         {
@@ -47,7 +44,7 @@ const seedDb = async () => {
         },
       ],
     });
-    await camp.save();
+    await tour.save();
   }
 };
 

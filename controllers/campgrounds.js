@@ -1,11 +1,11 @@
-const Campground = require("../models/campground");
+const Tourinfo = require("../models/campground");
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const { cloudinary } = require("../cloudinary");
 
 module.exports.index = async (req, res) => {
-  const campgrounds = await Campground.find({});
+  const campgrounds = await Tourinfo.find({});
   res.render("campgrounds/index", { campgrounds });
 };
 
@@ -18,12 +18,12 @@ module.exports.createCampground = async (req, res) => {
     throw new ExpressError("Invalid Campground Data", 400);
   const geoData = await geocoder
     .forwardGeocode({
-      query: req.body.campground.location,
+      query: req.body.campground.rdnmadr,
       limit: 1,
       language: ["kr"],
     })
     .send();
-  const campground = new Campground(req.body.campground);
+  const campground = new Tourinfo(req.body.campground);
   campground.geometry = geoData.body.features[0].geometry;
   campground.images = req.files.map((f) => ({
     url: f.path,
@@ -37,7 +37,7 @@ module.exports.createCampground = async (req, res) => {
 };
 
 module.exports.showCampground = async (req, res) => {
-  const campground = await Campground.findById(req.params.id)
+  const campground = await Tourinfo.findById(req.params.id)
     .populate({
       path: "reviews",
       populate: {
@@ -55,7 +55,7 @@ module.exports.showCampground = async (req, res) => {
 
 module.exports.renderEditForm = async (req, res) => {
   const { id } = req.params;
-  const campground = await Campground.findById(id);
+  const campground = await Tourinfo.findById(id);
   if (!campground) {
     req.flash("error", "Cannot find that campground");
     return res.redirect("/campgrounds");
@@ -66,7 +66,7 @@ module.exports.renderEditForm = async (req, res) => {
 module.exports.updateCampground = async (req, res) => {
   const { id } = req.params;
   console.log(req.body);
-  const campground = await Campground.findByIdAndUpdate(id, {
+  const campground = await Tourinfo.findByIdAndUpdate(id, {
     ...req.body.campground,
   });
   const imgs = req.files.map((f) => ({
@@ -91,7 +91,7 @@ module.exports.updateCampground = async (req, res) => {
 
 module.exports.deleteCampground = async (req, res) => {
   const { id } = req.params;
-  await Campground.findByIdAndDelete(id);
+  await Tourinfo.findByIdAndDelete(id);
   req.flash("success", "Successfully deleted campground!");
   res.redirect("/campgrounds");
 };

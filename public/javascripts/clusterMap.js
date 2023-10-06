@@ -3,8 +3,8 @@ const map = new mapboxgl.Map({
   container: "cluster-map",
   // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
   style: "mapbox://styles/mapbox/light-v11",
-  center: [-103.5917, 40.6699],
-  zoom: 3,
+  center: [126.978368, 37.566746],
+  zoom: 6,
 });
 
 map.addControl(new mapboxgl.NavigationControl());
@@ -115,3 +115,12 @@ map.on("load", () => {
     map.getCanvas().style.cursor = "";
   });
 });
+
+mapboxgl.setRTLTextPlugin(
+  "https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js"
+);
+map.addControl(
+  new MapboxLanguage({
+    defaultLanguage: "ko",
+  })
+);

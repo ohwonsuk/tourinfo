@@ -6,7 +6,7 @@ const {
   validateCampground,
 } = require("../middleware.js");
 const campgrounds = require("../controllers/campgrounds.js");
-const Campground = require("../models/campground");
+const Tourinfo = require("../models/campground");
 const catchAsync = require("../utils/catchAsync");
 const multer = require("multer");
 const { storage } = require("../cloudinary");

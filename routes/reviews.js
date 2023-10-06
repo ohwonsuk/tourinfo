@@ -3,8 +3,6 @@ const express = require("express");
 // 매개변수 병합을 위해서 mergeParams 설정해야 함
 const router = express.Router({ mergeParams: true });
 const catchAsync = require("../utils/catchAsync");
-const Campground = require("../models/campground");
-const Review = require("../models/review");
 const reviews = require("../controllers/reviews");
 const { validateReview, isLoggedIn, isReviewAuthor } = require("../middleware");
 

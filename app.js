@@ -20,7 +20,7 @@ const MongoStore = require("connect-mongo");
 const userRoutes = require("./routes/users.js");
 const campgroundRoutes = require("./routes/campgrounds.js");
 const reviewRoutes = require("./routes/reviews.js");
-const dbUrl = "mongodb://127.0.0.1:27017/peter-camp"; // process.env.DB_URL ||
+const dbUrl = "mongodb://127.0.0.1:27017/tourinfo"; // process.env.DB_URL ||
 
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,

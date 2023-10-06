@@ -10,22 +10,22 @@
       enctype="multipart/form-data"
     >
       <div class="mb-3">
-        <label class="form-label" for="title">Title</label>
+        <label class="form-label" for="title">관광지명</label>
         <input
           class="form-control"
           type="text"
-          name="campground[title]"
+          name="campground[trrsrtNm]"
           id="title"
           required
         />
         <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
-        <label class="form-label" for="location">Location</label>
+        <label class="form-label" for="location">위치</label>
         <input
           class="form-control"
           type="text"
-          name="campground[location]"
+          name="campground[rdnmadr]"
           id="location"
           required
         />
@@ -50,11 +50,11 @@
         </div>
       </div>
       <div class="mb-3">
-        <label class="form-label" for="description">Description</label>
+        <label class="form-label" for="description">소개정보</label>
         <textarea
           class="form-control"
           type="text"
-          name="campground[description]"
+          name="campground[trrsrtIntrcn]"
           id="location"
           required
         ></textarea>
@@ -69,13 +69,13 @@
             name="image"
             multiple
           />
-          <label class="input-group-text" for="image">Upload</label>
+          <label class="input-group-text" for="image">업로드</label>
         </div>
       </div>
       <div class="mb-3">
-        <button class="btn btn-success">Add Campground</button>
+        <button class="btn btn-success">저장하기</button>
       </div>
-      <div><a href="/campgrounds">All Campgrounds</a></div>
+      <div><a href="/campgrounds">전체 관광지</a></div>
     </form>
   </div>
 </div>
