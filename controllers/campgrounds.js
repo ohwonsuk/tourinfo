@@ -3,6 +3,7 @@ const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const { cloudinary } = require("../cloudinary");
+const { getYmd10 } = require("../utils/dateFormatter");
 
 module.exports.index = async (req, res) => {
   const campgrounds = await Tourinfo.find({});
@@ -50,7 +51,7 @@ module.exports.showCampground = async (req, res) => {
     req.flash("error", "Cannot find that campground");
     return res.redirect("/campgrounds");
   }
-  res.render("campgrounds/show", { campground });
+  res.render("campgrounds/show", { campground, getYmd10 });
 };
 
 module.exports.renderEditForm = async (req, res) => {

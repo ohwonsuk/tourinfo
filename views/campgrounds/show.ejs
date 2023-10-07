@@ -39,7 +39,7 @@
         <p class="card-text"><%= campground.trrsrtIntrcn %></p>
       </div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item text-muted"><%= campground.rdnmadr %></li>
+        <li class="list-group-item text-muted"><%= campground.addr %></li>
         <li class="list-group-item">
           작성자 : <%= campground.author.username %>
         </li>
@@ -164,7 +164,8 @@
         <h6 class="card-subtitle mb-2 text-muted">
           <!-- By <%=review.author.username %> -->
         </h6>
-        <p class="card-text">Review: <%= review.body %></p>
+        <p class="card-text">작성일: <%= getYmd10(review.date) %></p>
+        <p class="card-text"><%= review.body %></p>
         <% if (currentUser && review.author.equals(currentUser._id)) { %>
         <form
           action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"

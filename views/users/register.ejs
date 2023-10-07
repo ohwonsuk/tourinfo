@@ -9,7 +9,7 @@
           class="card-img-top"
         />
         <div class="card-body d-grid">
-          <h5 class="card-title">Register</h5>
+          <h5 class="card-title">가입하기</h5>
           <form
             action="/register"
             method="POST"
@@ -17,7 +17,19 @@
             novalidate
           >
             <div class="mb-3">
-              <label class="form-label" for="username">Username</label>
+              <label class="form-label" for="userid">아이디</label>
+              <input
+                class="form-control"
+                type="text"
+                name="userid"
+                id="userid"
+                autofocus
+                required
+              />
+              <div class="valid-feedback">Looks good!</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="username">이름</label>
               <input
                 class="form-control"
                 type="text"
@@ -29,7 +41,7 @@
               <div class="valid-feedback">Looks good!</div>
             </div>
             <div class="mb-3">
-              <label class="form-label" for="username">Email</label>
+              <label class="form-label" for="username">이메일</label>
               <input
                 class="form-control"
                 type="email"
@@ -40,7 +52,7 @@
               <div class="valid-feedback">Looks good!</div>
             </div>
             <div class="mb-3">
-              <label class="form-label" for="password">Password</label>
+              <label class="form-label" for="password">비밀번호</label>
               <input
                 class="form-control"
                 type="password"
@@ -51,7 +63,7 @@
               <div class="valid-feedback">Looks good!</div>
             </div>
             <div class="d-grid gap-2">
-              <button class="btn btn-success">Register</button>
+              <button class="btn btn-success">등록하기</button>
             </div>
           </form>
         </div>

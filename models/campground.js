@@ -34,8 +34,7 @@ const TourinfoSchema = new Schema(
         required: true,
       },
     },
-    rdnmadr: String, // 소재지도로명주소
-    lnmadr: String, // 소재지지번주소
+    addr: String, // 소재지주소
     ar: Number, // 면적
     cnvnncFclty: String, // 공공편익시설정보
     stayngInfo: String, // 숙박시설정보

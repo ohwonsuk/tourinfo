@@ -21,12 +21,14 @@ const seedDb = async () => {
   for (let i = 0; i < 962; i++) {
     const tour = new Tourinfo({
       // your user id
-      author: "652024cc14dbc1902f779cb8",
+      author: "65210e36192a52f9b19f5e5b",
       trrsrtNm: sights[i].관광지명,
       trrsrtSe: sights[i].관광지구분,
       trrsrtIntrcn: sights[i].관광지소개,
-      rdnmadr: sights[i].소재지도로명주소,
-      lnmadr: sights[i].소재지지번주소,
+      // 삼항연산으로 도로명주소 없는 경우만 지번주소 사용
+      addr: sights[i].소재지도로명주소
+        ? sights[i].소재지도로명주소
+        : sights[i].소재지지번주소,
       institutionNm: sights[i].관리기관명,
       referenceDate: sights[i].데이터기준일자,
       geometry: {
