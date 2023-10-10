@@ -36,7 +36,49 @@
   </div>
 </div>
 <% } %>
+<p>startPage: <%=startPage %></p>
 
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <% if (startPage > maxPage) { %>
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="/campgrounds/?page=<%= startPage-1 %>"
+        aria-label="Previous"
+      >
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <% } else { %>
+    <li class="page-item disabled">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <% } %> <% for ( i = startPage; i <= endPage ;i++) { %>
+    <li class="page-item">
+      <a class="page-link" href="/campgrounds/?page=<%= i %>"><%=i %></a>
+    </li>
+    <% } %> <% if (endPage < totalPage ) { %>
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="/campgrounds/?page=<%= endPage+1 %>"
+        aria-label="Next"
+      >
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+    <% } else { %>
+    <li class="page-item">
+      <a class="page-link disabled" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+    <% } %>
+  </ul>
+</nav>
 <script>
   const mapToken = "<%- process.env.MAPBOX_TOKEN %>";
   const campgrounds = {features: <%- JSON.stringify(campgrounds) %>};

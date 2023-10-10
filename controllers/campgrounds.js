@@ -4,10 +4,35 @@ const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const { cloudinary } = require("../cloudinary");
 const { getYmd10 } = require("../utils/dateFormatter");
+const { pagingFunc } = require("../utils/pagingFunc");
 
 module.exports.index = async (req, res) => {
-  const campgrounds = await Tourinfo.find({});
-  res.render("campgrounds/index", { campgrounds });
+  const page = Number(req.query.page);
+  console.log("page:", page);
+  const totalList = await Tourinfo.countDocuments({});
+  console.log(totalList);
+  let {
+    startPage,
+    endPage,
+    hideList,
+    maxList,
+    maxPage,
+    totalPage,
+    currentPage,
+  } = pagingFunc(page, totalList);
+  console.log("startPgae:", startPage, "tatalPage:", totalPage);
+  const campgrounds = await Tourinfo.find({}).skip(hideList).limit(maxList);
+
+  res.render("campgrounds/index", {
+    campgrounds,
+    startPage,
+    endPage,
+    hideList,
+    maxList,
+    maxPage,
+    totalPage,
+    currentPage,
+  });
 };
 
 module.exports.renderNewForm = (req, res) => {
@@ -51,7 +76,7 @@ module.exports.showCampground = async (req, res) => {
     req.flash("error", "Cannot find that campground");
     return res.redirect("/campgrounds");
   }
-  res.render("campgrounds/show", { campground, getYmd10 });
+  res.render("campgrounds/show", { campground, getYmd10 }); // 날짜 포맷 변경위해 함수 같이 넘김
 };
 
 module.exports.renderEditForm = async (req, res) => {
