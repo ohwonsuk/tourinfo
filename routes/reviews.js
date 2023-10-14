@@ -9,7 +9,7 @@ const { validateReview, isLoggedIn, isReviewAuthor } = require("../middleware");
 router.post("/", isLoggedIn, validateReview, catchAsync(reviews.createReview));
 
 // 리뷰 데이터 삭제하기
-// mongodb의 $pull 이용해 campground id 데이터중 reviews 배열의 reviewId 값을 가져옴
+
 router.delete(
   "/:reviewId",
   isLoggedIn,

@@ -21,11 +21,35 @@
         <a class="nav-link" href="/campgrounds/?page=1">Campgrounds</a>
         <a class="nav-link" href="/campgrounds/new">New Campground</a>
       </div>
+
       <div class="navbar-nav ms-auto">
+        <div>
+          <form
+            class="d-flex"
+            role="search"
+            action="/campgrounds/search"
+            method="GET"
+            novalidate
+            class="validated-form"
+            enctype="multipart/form-data"
+          >
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              name="site"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
         <% if (!currentUser) { %>
         <a class="nav-link" href="/login">Login</a>
         <a class="nav-link" href="/register">Register</a>
         <% } else { %>
+        <div class="nav-link"><%= currentUser.username %></div>
         <a class="nav-link" href="/logout">Logout</a>
         <% } %>
       </div>

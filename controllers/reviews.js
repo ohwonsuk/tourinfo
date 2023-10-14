@@ -12,9 +12,10 @@ module.exports.createReview = async (req, res) => {
   res.redirect(`/campgrounds/${campground._id}`);
 };
 
+// mongodb의 $pull 이용해 campground id 데이터중 reviews 배열의 reviewId 값을 가져옴
 module.exports.deleteReview = async (req, res) => {
   const { id, reviewId } = req.params;
-  await Campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+  await Tourinfo.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
   await Review.findByIdAndDelete(req.params.reviewId);
   req.flash("success", "Successfully deleted review!");
   res.redirect(`/campgrounds/${id}`);

@@ -11,7 +11,7 @@ const flash = require("connect-flash");
 const ExpressError = require("./utils/ExpressError");
 const methodOverride = require("method-override");
 const passort = require("passport");
-const LocalStrategy = require("passport-local");
+const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/user.js");
 const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
@@ -130,10 +130,80 @@ app.use(
 
 app.use(passort.initialize());
 app.use(passort.session());
-passort.use(new LocalStrategy(User.authenticate()));
 
-passort.serializeUser(User.serializeUser());
-passort.deserializeUser(User.deserializeUser());
+passort.use(
+  new LocalStrategy(
+    {
+      usernameField: "userid",
+      passwordField: "password",
+    },
+    async (username, password, done) => {
+      console.log("LocalStrategy", username, password);
+      const exUser = await User.findOne({ userid: username });
+      console.log("exUser", exUser);
+      if (username === exUser.userid) {
+        console.log(1);
+        // if (password === exUser.password) {
+        //   console.log(2);
+        return done(null, exUser);
+        // } else {
+        //   console.log(3);
+        //   return done(null, false, {
+        //     message: "Incorrect password.",
+        //   });
+        // }
+      } else {
+        console.log(4);
+        return done(null, false, {
+          message: "Incorrect username.",
+        });
+      }
+    }
+  )
+);
+
+// passort.use(
+//   new LocalStrategy(
+//     {
+//       usernameField: "userid",
+//       passwordField: "password",
+//     },
+//     // function (username, password, done) {
+//     // console.log(username, password);
+//     async (username, password, done) => {
+//       try {
+//         const exUser = await User.find({ userid: username });
+//         console.log("exUser", exUser);
+//         if (exUser) {
+//           const result = await exUser.comparePassword(password);
+//           if (result) {
+//           done(null, exUser);
+//           } else {
+//             done(null, false, { message: "비밀번호가 일치하지 않습니다." });
+//           }
+//         } else {
+//           done(null, false, { message: "가입되지 않은 회원입니다." });
+//         }
+//       } catch (error) {
+//         console.error(error);
+//         done(error);
+//       }
+//     }
+//     }
+//   )
+// );
+
+// passort.serializeUser(User.serializeUser());
+// passort.deserializeUser(User.deserializeUser());
+
+passort.serializeUser(function (user, done) {
+  console.log("serializeUser", user);
+  done(null, user);
+});
+passort.deserializeUser(function (id, done) {
+  console.log("deserializeUser", id);
+  done(null, id);
+});
 
 // req.locals 요청-응답 사이클에서 데이터를 애플리케이션에 전달할 수 있는 오브젝트로
 // 이 오브젝트로 저장된 변수는 템플릿 및 다른 미들웨어 함수가 접근할 수 있음.

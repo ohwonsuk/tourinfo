@@ -23,7 +23,8 @@ router
     catchAsync(campgrounds.createCampground)
   );
 
-router.get("/new", isLoggedIn, campgrounds.renderNewForm);
+router.get("/new", isLoggedIn, catchAsync(campgrounds.renderNewForm));
+router.get("/search", catchAsync(campgrounds.searchCampground));
 
 router
   .route("/:id")

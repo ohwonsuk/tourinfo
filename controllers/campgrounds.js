@@ -40,6 +40,7 @@ module.exports.renderNewForm = (req, res) => {
 };
 
 module.exports.createCampground = async (req, res) => {
+  console.log("createCampground", req.body);
   if (!req.body.campground)
     throw new ExpressError("Invalid Campground Data", 400);
   const geoData = await geocoder
@@ -120,4 +121,18 @@ module.exports.deleteCampground = async (req, res) => {
   await Tourinfo.findByIdAndDelete(id);
   req.flash("success", "Successfully deleted campground!");
   res.redirect("/campgrounds");
+};
+
+module.exports.searchCampground = async (req, res) => {
+  const site = req.query.site;
+  console.log(site);
+  const campgrounds = await Tourinfo.find({ trrsrtNm: { $in: site } });
+  console.log(campgrounds.length);
+  if (campgrounds.length > 0) {
+    res.render("campgrounds/find", {
+      campgrounds,
+    });
+  } else {
+    res.redirect("/campgrounds/?page=1");
+  }
 };
