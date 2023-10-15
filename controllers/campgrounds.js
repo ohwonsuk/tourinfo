@@ -36,6 +36,7 @@ module.exports.index = async (req, res) => {
 };
 
 module.exports.renderNewForm = (req, res) => {
+  console.log("renderNewForm", req.body);
   res.render("campgrounds/new");
 };
 
@@ -45,7 +46,7 @@ module.exports.createCampground = async (req, res) => {
     throw new ExpressError("Invalid Campground Data", 400);
   const geoData = await geocoder
     .forwardGeocode({
-      query: req.body.campground.rdnmadr,
+      query: req.body.campground.addr,
       limit: 1,
       language: ["kr"],
     })
@@ -57,7 +58,7 @@ module.exports.createCampground = async (req, res) => {
     filename: f.filename,
   }));
   campground.author = req.user._id;
-  console.log(campground);
+  console.log("createCampground", campground);
   await campground.save();
   req.flash("success", "Successfully made a new campground!");
   res.redirect(`/campgrounds/${campground._id}`);
@@ -72,7 +73,7 @@ module.exports.showCampground = async (req, res) => {
       },
     })
     .populate("author");
-  console.log(campground);
+  console.log("showCampground", campground);
   if (!campground) {
     req.flash("error", "Cannot find that campground");
     return res.redirect("/campgrounds");
@@ -82,6 +83,7 @@ module.exports.showCampground = async (req, res) => {
 
 module.exports.renderEditForm = async (req, res) => {
   const { id } = req.params;
+  console.log("renderEditForm", req.params);
   const campground = await Tourinfo.findById(id);
   if (!campground) {
     req.flash("error", "Cannot find that campground");
@@ -92,7 +94,8 @@ module.exports.renderEditForm = async (req, res) => {
 
 module.exports.updateCampground = async (req, res) => {
   const { id } = req.params;
-  console.log(req.body);
+  console.log("id", req.params);
+  console.log("updateCampground", req.body);
   const campground = await Tourinfo.findByIdAndUpdate(id, {
     ...req.body.campground,
   });
@@ -110,7 +113,7 @@ module.exports.updateCampground = async (req, res) => {
     await campground.updateOne({
       $pull: { images: { filename: { $in: req.body.deleteImages } } },
     });
-    console.log(campground);
+    console.log("updateCampground-save:", campground);
   }
   req.flash("success", "Successfully updated campground!");
   res.redirect(`/campgrounds/${campground._id}`);
@@ -120,12 +123,12 @@ module.exports.deleteCampground = async (req, res) => {
   const { id } = req.params;
   await Tourinfo.findByIdAndDelete(id);
   req.flash("success", "Successfully deleted campground!");
-  res.redirect("/campgrounds");
+  res.redirect("/campgrounds/?page=1");
 };
 
 module.exports.searchCampground = async (req, res) => {
   const site = req.query.site;
-  console.log(site);
+  console.log("검색명칭", site);
   const campgrounds = await Tourinfo.find({ trrsrtNm: { $in: site } });
   console.log(campgrounds.length);
   if (campgrounds.length > 0) {

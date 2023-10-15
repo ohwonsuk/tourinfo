@@ -16,7 +16,7 @@
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
       <header class="mb-auto">
         <div>
-          <h3 class="float-md-start mb-0">여행가이드</h3>
+          <h5 class="float-md-start mb-0">피터의 여행가이드</h5>
           <nav class="nav nav-masthead justify-content-center float-md-end">
             <a href="#" class="nav-link active" aria-current="page">Home</a>
             <a href="/campgrounds/?page=1" class="nav-link">Campgrounds</a>
@@ -24,6 +24,7 @@
             <a href="/login" class="nav-link">Login</a>
             <a href="/register" class="nav-link">Register</a>
             <% } else { %>
+            <div class="nav-link"><%= currentUser.userid %></div>
             <a href="/logout" class="nav-link">Logout</a>
             <% } %>
           </nav>

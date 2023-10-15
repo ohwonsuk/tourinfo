@@ -34,18 +34,27 @@
         <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
-        <label class="form-label" for="pridce">관리기관</label>
+        <label class="form-label" for="institution">관리기관</label>
         <div class="input-group">
-          <span class="input-group-text" id="price-label">$</span>
           <input
             type="text"
             class="form-control"
-            id="price"
-            placeholder="0.00"
-            aria-label="price"
-            aria-describedby="price-label"
+            id="institution"
+            placeholder="관리기관명"
+            aria-label="institutionName"
             name="campground[institutionNm]"
             value="<%= campground.institutionNm %>"
+            required
+          />
+          <span class="input-group-text">기준일자</span>
+          <input
+            type="text"
+            class="form-control"
+            id="institution"
+            placeholder="기준일자"
+            aria-label="referenceDate"
+            name="campground[referenceDate]"
+            value="<%= campground.referenceDate %>"
             required
           />
           <div class="valid-feedback">Looks good!</div>
@@ -57,7 +66,7 @@
           class="form-control"
           type="text"
           name="campground[trrsrtIntrcn]"
-          id="location"
+          id="description"
           required
         >
 <%= campground.trrsrtIntrcn %></textarea

@@ -1,6 +1,6 @@
 <% layout('/layouts/boilerplate') %>
 <div class="row">
-  <h1 class="text-center">New Campground</h1>
+  <h1 class="text-center">신규 입력하기</h1>
   <div class="col-md-6 offset-md-3">
     <form
       action="/campgrounds"
@@ -21,11 +21,11 @@
         <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
-        <label class="form-label" for="location">위치</label>
+        <label class="form-label" for="location">주소</label>
         <input
           class="form-control"
           type="text"
-          name="campground[rdnmadr]"
+          name="campground[addr]"
           id="location"
           required
         />
@@ -33,7 +33,7 @@
       </div>
 
       <div class="mb-3">
-        <label class="form-label" for="instituion">관리기관</label>
+        <label class="form-label" for="institution">관리기관</label>
         <div class="input-group">
           <!-- <span class="input-group-text" id="price-label">$</span> -->
           <input
@@ -48,6 +48,18 @@
           />
           <div class="valid-feedback">Looks good!</div>
         </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="referenceDate">기준일자</label>
+        <input
+          class="form-control"
+          type="text"
+          name="campground[referenceDate]"
+          id="referenceDate"
+          placeholder="정보기준일입력하세요(예:2023-10-15)"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <label class="form-label" for="description">소개정보</label>
