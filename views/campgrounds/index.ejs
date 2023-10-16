@@ -1,7 +1,30 @@
 <% layout('/layouts/boilerplate') %>
 <div id="cluster-map"></div>
-<h1>전제 관광지</h1>
-<div><a href="/campgrounds/new">관광지 추가</a></div>
+<div class="mb-3"><a href="/campgrounds/new">관광지 추가</a></div>
+<form
+  action="/campgrounds/city"
+  class="row g-3"
+  method="GET"
+  novalidate
+  class="validated-form"
+  enctype="multipart/form-data"
+>
+  <div class="col-auto">
+    <select
+      class="form-select form-select-sm mb-3"
+      aria-label="Small select example"
+      name="city"
+    >
+      <option selected>검색할 지역을 선택하세요</option>
+      <% for (let city of cities) {%>
+      <option value="<%= city %>"><%=city %></option>
+      <% } %>
+    </select>
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary mb-3">검색</button>
+  </div>
+</form>
 <% for (let campground of campgrounds) { %>
 <div class="card mb-3">
   <div class="row">

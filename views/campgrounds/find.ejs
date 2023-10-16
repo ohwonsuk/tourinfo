@@ -2,6 +2,30 @@
 <div id="cluster-map"></div>
 <div><a href="/campgrounds/?page=1">전체보기</a></div>
 <div><a href="/campgrounds/new">관광지 추가</a></div>
+<div>총 <%=campgrounds.length%>건</div>
+<form
+  action="/campgrounds/city"
+  class="row g-3"
+  method="GET"
+  novalidate
+  class="validated-form"
+  enctype="multipart/form-data"
+>
+  <div class="col-auto">
+    <select
+      class="form-select form-select-sm mb-3"
+      aria-label="Small select example"
+      name="city"
+    >
+      <% for (let city of cities) {%>
+      <option value="<%=city %>" <%= campgrounds[0].city === city ? 'selected' : ''%> ><%=city %></option>
+      <% } %>
+    </select>
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary mb-3">검색</button>
+  </div>
+</form>
 <% if (campgrounds.length) { %> <% for (let campground of campgrounds) { %>
 <div class="card mb-3">
   <div class="row">

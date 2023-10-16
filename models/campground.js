@@ -21,7 +21,10 @@ const opts = { toJSON: { virtuals: true } };
 const TourinfoSchema = new Schema(
   {
     trrsrtNm: String, // 관광지명
-    trrsrtSe: String, // 관광지구분
+    trrsrtSe: {
+      type: String,
+      enum: ["관광지", "관광단지", "축제/행사", "음식점", "숙박"],
+    }, // 관광지구분
     images: [ImageSchema],
     geometry: {
       type: {
@@ -34,6 +37,7 @@ const TourinfoSchema = new Schema(
         // required: true,
       },
     },
+    city: String,
     addr: String, // 소재지주소
     ar: Number, // 면적
     cnvnncFclty: String, // 공공편익시설정보

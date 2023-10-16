@@ -29,6 +29,9 @@ const seedDb = async () => {
       addr: sights[i].소재지도로명주소
         ? sights[i].소재지도로명주소
         : sights[i].소재지지번주소,
+      city: sights[i].소재지도로명주소
+        ? sights[i].소재지도로명주소.split(" ")[0]
+        : sights[i].소재지지번주소.split(" ")[0],
       institutionNm: sights[i].관리기관명,
       referenceDate: sights[i].데이터기준일자,
       geometry: {

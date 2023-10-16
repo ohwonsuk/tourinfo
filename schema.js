@@ -30,6 +30,7 @@ module.exports.campgroundSchema = Joi.object({
     institutionNm: Joi.string().escapeHTML(),
     referenceDate: Joi.string().escapeHTML(),
     addr: Joi.string().required().escapeHTML(),
+    city: Joi.string().escapeHTML(),
     trrsrtIntrcn: Joi.string().required().escapeHTML(),
   }).required(),
   deleteImages: Joi.array(),

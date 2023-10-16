@@ -6,6 +6,24 @@ const { cloudinary } = require("../cloudinary");
 const { getYmd10 } = require("../utils/dateFormatter");
 const { pagingFunc } = require("../utils/pagingFunc");
 
+const cities = [
+  "서울특별시",
+  "부산광역시",
+  "인천광역시",
+  "대구광역시",
+  "대전광역시",
+  "울산광역시",
+  "경기도",
+  "제주특별자치도",
+  "경상북도",
+  "경상남도",
+  "충청북도",
+  "충청남도",
+  "전라북도",
+  "전라남도",
+  "강원특별자치도",
+];
+
 module.exports.index = async (req, res) => {
   const page = Number(req.query.page);
   console.log("page:", page);
@@ -25,6 +43,7 @@ module.exports.index = async (req, res) => {
 
   res.render("campgrounds/index", {
     campgrounds,
+    cities,
     startPage,
     endPage,
     hideList,
@@ -134,6 +153,21 @@ module.exports.searchCampground = async (req, res) => {
   if (campgrounds.length > 0) {
     res.render("campgrounds/find", {
       campgrounds,
+    });
+  } else {
+    res.redirect("/campgrounds/?page=1");
+  }
+};
+
+module.exports.cityFindCampground = async (req, res) => {
+  const city = req.query.city;
+  console.log("지역선택", city);
+  const campgrounds = await Tourinfo.find({ city: { $in: city } });
+  console.log(campgrounds.length);
+  if (campgrounds.length > 0) {
+    res.render("campgrounds/find", {
+      campgrounds,
+      cities,
     });
   } else {
     res.redirect("/campgrounds/?page=1");
