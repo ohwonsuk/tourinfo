@@ -131,69 +131,9 @@ app.use(
 app.use(passort.initialize());
 app.use(passort.session());
 
-passort.use(
-  new LocalStrategy(
-    {
-      usernameField: "userid",
-      passwordField: "password",
-    },
-    async (username, password, done) => {
-      console.log("LocalStrategy", username, password);
-      const exUser = await User.findOne({ userid: username });
-      console.log("exUser", exUser);
-      if (username === exUser.userid) {
-        console.log(1);
-        // if (password === exUser.password) {
-        //   console.log(2);
-        return done(null, exUser);
-        // } else {
-        //   console.log(3);
-        //   return done(null, false, {
-        //     message: "Incorrect password.",
-        //   });
-        // }
-      } else {
-        console.log(4);
-        return done(null, false, {
-          message: "Incorrect username.",
-        });
-      }
-    }
-  )
-);
+passort.use(User.createStrategy());
 
-// passort.use(
-//   new LocalStrategy(
-//     {
-//       usernameField: "userid",
-//       passwordField: "password",
-//     },
-//     // function (username, password, done) {
-//     // console.log(username, password);
-//     async (username, password, done) => {
-//       try {
-//         const exUser = await User.find({ userid: username });
-//         console.log("exUser", exUser);
-//         if (exUser) {
-//           const result = await exUser.comparePassword(password);
-//           if (result) {
-//           done(null, exUser);
-//           } else {
-//             done(null, false, { message: "비밀번호가 일치하지 않습니다." });
-//           }
-//         } else {
-//           done(null, false, { message: "가입되지 않은 회원입니다." });
-//         }
-//       } catch (error) {
-//         console.error(error);
-//         done(error);
-//       }
-//     }
-//     }
-//   )
-// );
-
-// passort.serializeUser(User.serializeUser());
+// passort.serializeUser(User.serializeUser()); username, password 두개만 사용 경우
 // passort.deserializeUser(User.deserializeUser());
 
 passort.serializeUser(function (user, done) {

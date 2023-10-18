@@ -16,7 +16,9 @@ const UserSchema = new Schema({
 });
 
 // UserSchema에 username, password 를 추가해주는 plugin 사용
-UserSchema.plugin(passportLocalMongoose);
+UserSchema.plugin(passportLocalMongoose, {
+  usernameField: "userid",
+});
 
 UserSchema.methods.comparePassword = function (inputPassword, cb) {
   if (inputPassword === this.password) {
