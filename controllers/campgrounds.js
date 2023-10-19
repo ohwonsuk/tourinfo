@@ -148,7 +148,7 @@ module.exports.deleteCampground = async (req, res) => {
 module.exports.searchCampground = async (req, res) => {
   const site = req.query.site;
   console.log("검색명칭", site);
-  const campgrounds = await Tourinfo.find({ trrsrtNm: { $in: site } });
+  const campgrounds = await Tourinfo.find({ trrsrtNm: { $regex: site } });
   console.log(campgrounds);
   if (campgrounds.length > 0) {
     res.render("campgrounds/find", {

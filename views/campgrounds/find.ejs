@@ -48,7 +48,9 @@
     <div class="col-md-8">
       <div class="card-body">
         <h5 class="card-title"><%= campground.trrsrtNm %></h5>
-        <p class="card-text"><%= campground.trrsrtIntrcn %></p>
+        <p class="card-text"><%= (campground.trrsrtIntrcn.length > 200) ?
+          campground.trrsrtIntrcn.slice(0,200)+" ..." : campground.trrsrtIntrcn
+          %></p>
         <p class="card-text">
           <small class="text-muted"><%= campground.addr %></small>
         </p>
