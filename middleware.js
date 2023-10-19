@@ -13,6 +13,7 @@ module.exports.isLoggedIn = (req, res, next) => {
     req.flash("error", "you must be signed in first");
     return res.redirect("/login");
   }
+  console.log("isLoggedin", req.user);
   next();
 };
 

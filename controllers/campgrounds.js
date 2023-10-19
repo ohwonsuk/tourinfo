@@ -55,8 +55,8 @@ module.exports.index = async (req, res) => {
 };
 
 module.exports.renderNewForm = (req, res) => {
-  console.log("renderNewForm", req.body);
-  res.render("campgrounds/new");
+  console.log("renderNewForm", req.user);
+  res.render("campgrounds/new", { cities });
 };
 
 module.exports.createCampground = async (req, res) => {
@@ -149,10 +149,11 @@ module.exports.searchCampground = async (req, res) => {
   const site = req.query.site;
   console.log("검색명칭", site);
   const campgrounds = await Tourinfo.find({ trrsrtNm: { $in: site } });
-  console.log(campgrounds.length);
+  console.log(campgrounds);
   if (campgrounds.length > 0) {
     res.render("campgrounds/find", {
       campgrounds,
+      cities,
     });
   } else {
     res.redirect("/campgrounds/?page=1");

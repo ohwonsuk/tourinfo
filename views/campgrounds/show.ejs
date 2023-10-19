@@ -41,7 +41,7 @@
       <ul class="list-group list-group-flush">
         <li class="list-group-item text-muted"><%= campground.addr %></li>
         <li class="list-group-item">
-          작성자 : <%= campground.author.username %>
+          작성자 : <%= campground.author.userid %>
         </li>
         <li class="list-group-item">
           [관리기관] <%= campground.institutionNm %>
@@ -156,7 +156,7 @@
     <% } %> <% for (let review of campground.reviews) { %>
     <div class="card mb-3">
       <div class="card-body">
-        <h5 class="card-title"><%=review.author.username %></h5>
+        <h5 class="card-title"><%=review.author.userid %></h5>
         <!-- <h3>Rated element name</h3> -->
         <p class="starability-result" data-rating="<%= review.rating %>">
           Rated: <%= review.rating %> stars

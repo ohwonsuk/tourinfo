@@ -133,17 +133,18 @@ app.use(passort.session());
 
 passort.use(User.createStrategy());
 
-// passort.serializeUser(User.serializeUser()); username, password 두개만 사용 경우
-// passort.deserializeUser(User.deserializeUser());
+// username, password 두개만 사용 경우
+passort.serializeUser(User.serializeUser());
+passort.deserializeUser(User.deserializeUser());
 
-passort.serializeUser(function (user, done) {
-  console.log("serializeUser", user);
-  done(null, user);
-});
-passort.deserializeUser(function (id, done) {
-  console.log("deserializeUser", id);
-  done(null, id);
-});
+// passort.serializeUser(function (user, done) {
+//   console.log("serializeUser", user);
+//   done(null, user);
+// });
+// passort.deserializeUser(function (id, done) {
+//   console.log("deserializeUser", id);
+//   done(null, id);
+// });
 
 // req.locals 요청-응답 사이클에서 데이터를 애플리케이션에 전달할 수 있는 오브젝트로
 // 이 오브젝트로 저장된 변수는 템플릿 및 다른 미들웨어 함수가 접근할 수 있음.

@@ -20,6 +20,19 @@
         />
         <div class="valid-feedback">Looks good!</div>
       </div>
+      <div class="col-auto mb-3">
+        <select
+          class="form-select form-select mb-3"
+          aria-label="Small select example"
+          name="campground[city]"
+          required
+        >
+          <option selected>지역을 선택하세요</option>
+          <% for (let city of cities) {%>
+          <option value="<%= city %>"><%=city %></option>
+          <% } %>
+        </select>
+      </div>
       <div class="mb-3">
         <label class="form-label" for="location">주소</label>
         <input
@@ -35,7 +48,6 @@
       <div class="mb-3">
         <label class="form-label" for="institution">관리기관</label>
         <div class="input-group">
-          <!-- <span class="input-group-text" id="price-label">$</span> -->
           <input
             type="text"
             class="form-control"
