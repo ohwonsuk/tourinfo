@@ -12,6 +12,7 @@ const cities = [
   "인천광역시",
   "대구광역시",
   "대전광역시",
+  "광주광역시",
   "울산광역시",
   "경기도",
   "제주특별자치도",
@@ -108,7 +109,7 @@ module.exports.renderEditForm = async (req, res) => {
     req.flash("error", "Cannot find that campground");
     return res.redirect("/campgrounds");
   }
-  res.render("campgrounds/edit", { campground });
+  res.render("campgrounds/edit", { campground, cities });
 };
 
 module.exports.updateCampground = async (req, res) => {

@@ -18,8 +18,8 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link" href="/">Home</a>
-        <a class="nav-link" href="/campgrounds/?page=1">Campgrounds</a>
-        <a class="nav-link" href="/campgrounds/new">New Campground</a>
+        <a class="nav-link" href="/campgrounds/?page=1">전체관광지</a>
+        <a class="nav-link" href="/campgrounds/new">관광지신규등록</a>
       </div>
 
       <div class="navbar-nav ms-auto">
@@ -36,21 +36,21 @@
             <input
               class="form-control me-2"
               type="search"
-              placeholder="Search"
+              placeholder="관광지명 입력"
               aria-label="Search"
               name="site"
             />
             <button class="btn btn-outline-success" type="submit">
-              Search
+              search
             </button>
           </form>
         </div>
         <% if (!currentUser) { %>
-        <a class="nav-link" href="/login">Login</a>
-        <a class="nav-link" href="/register">Register</a>
+        <a class="nav-link" href="/login">로그인</a>
+        <a class="nav-link" href="/register">가입하기</a>
         <% } else { %>
         <div class="nav-link"><%= currentUser.userid %></div>
-        <a class="nav-link" href="/logout">Logout</a>
+        <a class="nav-link" href="/logout">로그아웃</a>
         <% } %>
       </div>
     </div>

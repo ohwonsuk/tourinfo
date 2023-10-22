@@ -21,6 +21,19 @@
         />
         <div class="valid-feedback">Looks good!</div>
       </div>
+      <div class="col-auto mb-3">
+        <select
+          class="form-select form-select mb-3"
+          aria-label="Small select example"
+          name="campground[city]"
+          required
+        >
+          <!-- <option selected>지역을 선택하세요</option> -->
+          <% for (let city of cities) {%>
+            <option value="<%=city %>" <%= (campground.city === city) ? 'selected' : ''%> ><%=city %></option>
+          <% } %>
+        </select>
+      </div>
       <div class="mb-3">
         <label class="form-label" for="location">위치</label>
         <input
