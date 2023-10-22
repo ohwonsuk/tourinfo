@@ -1,6 +1,6 @@
 <% layout('/layouts/boilerplate') %>
 <div class="row">
-  <h1 class="text-center">신규 입력하기</h1>
+  <h1 class="text-center mb-3">신규 입력하기</h1>
   <div class="col-md-6 offset-md-3">
     <form
       action="/campgrounds"
@@ -9,16 +9,18 @@
       class="validated-form"
       enctype="multipart/form-data"
     >
-      <div class="mb-3">
-        <label class="form-label" for="title">관광지명</label>
-        <input
-          class="form-control"
-          type="text"
-          name="campground[trrsrtNm]"
-          id="title"
+      <div class="col-auto mb-3">
+        <select
+          class="form-select form-select mb-3"
+          aria-label="Small select example"
+          name="campground[trrsrtSe]"
           required
-        />
-        <div class="valid-feedback">Looks good!</div>
+        >
+          <option selected>분류를 선택하세요</option>
+          <% for (let category of categories) {%>
+          <option value="<%= category %>"><%=category %></option>
+          <% } %>
+        </select>
       </div>
       <div class="col-auto mb-3">
         <select
@@ -33,6 +35,18 @@
           <% } %>
         </select>
       </div>
+      <div class="mb-3">
+        <label class="form-label" for="title">관광지명</label>
+        <input
+          class="form-control"
+          type="text"
+          name="campground[trrsrtNm]"
+          id="title"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
       <div class="mb-3">
         <label class="form-label" for="location">주소</label>
         <input

@@ -1,6 +1,6 @@
 <% layout('/layouts/boilerplate') %>
 <div class="row">
-  <h1 class="text-center">관광지 수정하기</h1>
+  <h1 class="text-center mb-3">관광지 수정하기</h1>
   <div class="col-md-6 offset-md-3">
     <form
       action="/campgrounds/<%=campground._id %>?_method=PUT"
@@ -9,6 +9,30 @@
       class="validated-form"
       enctype="multipart/form-data"
     >
+  <div class="mb-3">
+    <select
+      class="form-select form-select mb-3"
+      aria-label="Small select example"
+      name="campground[trrsrtSe]"
+      required
+    >
+      <% for (let category of categories) {%>
+        <option value="<%=category %>" <%= (campground.trrsrtSe === category) ? 'selected' : ''%> ><%=category %></option>
+      <% } %>
+    </select>
+  </div>
+  <div class="col-auto mb-3">
+    <select
+      class="form-select form-select mb-3"
+      aria-label="Small select example"
+      name="campground[city]"
+      required
+    >
+      <% for (let city of cities) {%>
+        <option value="<%=city %>" <%= (campground.city === city) ? 'selected' : ''%> ><%=city %></option>
+      <% } %>
+    </select>
+  </div>
       <div class="mb-3">
         <label class="form-label" for="title">관광지명</label>
         <input
@@ -21,19 +45,7 @@
         />
         <div class="valid-feedback">Looks good!</div>
       </div>
-      <div class="col-auto mb-3">
-        <select
-          class="form-select form-select mb-3"
-          aria-label="Small select example"
-          name="campground[city]"
-          required
-        >
-          <!-- <option selected>지역을 선택하세요</option> -->
-          <% for (let city of cities) {%>
-            <option value="<%=city %>" <%= (campground.city === city) ? 'selected' : ''%> ><%=city %></option>
-          <% } %>
-        </select>
-      </div>
+
       <div class="mb-3">
         <label class="form-label" for="location">위치</label>
         <input

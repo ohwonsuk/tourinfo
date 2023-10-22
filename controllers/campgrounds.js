@@ -6,6 +6,8 @@ const { cloudinary } = require("../cloudinary");
 const { getYmd10 } = require("../utils/dateFormatter");
 const { pagingFunc } = require("../utils/pagingFunc");
 
+const categories = ["관광지", "관광단지", "축제행사", "음식점", "숙박"];
+
 const cities = [
   "서울특별시",
   "부산광역시",
@@ -58,8 +60,8 @@ module.exports.index = async (req, res) => {
 };
 
 module.exports.renderNewForm = (req, res) => {
-  console.log("renderNewForm", req.user);
-  res.render("campgrounds/new", { cities });
+  // console.log("renderNewForm", req.user);
+  res.render("campgrounds/new", { cities, categories });
 };
 
 module.exports.createCampground = async (req, res) => {
@@ -111,7 +113,7 @@ module.exports.renderEditForm = async (req, res) => {
     req.flash("error", "Cannot find that campground");
     return res.redirect("/campgrounds");
   }
-  res.render("campgrounds/edit", { campground, cities });
+  res.render("campgrounds/edit", { campground, cities, categories });
 };
 
 module.exports.updateCampground = async (req, res) => {

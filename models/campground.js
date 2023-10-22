@@ -23,7 +23,7 @@ const TourinfoSchema = new Schema(
     trrsrtNm: String, // 관광지명
     trrsrtSe: {
       type: String,
-      enum: ["관광지", "관광단지", "축제/행사", "음식점", "숙박"],
+      enum: ["관광지", "관광단지", "축제행사", "음식점", "숙박"],
     }, // 관광지구분
     images: [ImageSchema],
     geometry: {

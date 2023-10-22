@@ -3,7 +3,7 @@ const map = new mapboxgl.Map({
   container: "cluster-map",
   // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
   style: "mapbox://styles/mapbox/light-v11",
-  center: [126.978368, 37.566746],
+  center: [127.4914411, 36.6358351], // 충청북도청 위치
   zoom: 6,
 });
 
@@ -37,7 +37,7 @@ map.on("load", () => {
       "circle-color": [
         "step",
         ["get", "point_count"],
-        "#845EC2",
+        "#FF6F91",
         10,
         "#FF9671",
         30,

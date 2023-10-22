@@ -27,6 +27,7 @@ const Joi = BaseJoi.extend(extension);
 module.exports.campgroundSchema = Joi.object({
   campground: Joi.object({
     trrsrtNm: Joi.string().required().escapeHTML(),
+    trrsrtSe: Joi.string().required().escapeHTML(),
     institutionNm: Joi.string().escapeHTML(),
     referenceDate: Joi.string().escapeHTML(),
     addr: Joi.string().required().escapeHTML(),
