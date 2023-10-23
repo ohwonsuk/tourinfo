@@ -64,7 +64,7 @@
 </div>
 <% } %> <% if (startPage > 0) { %>
 <nav aria-label="Page navigation example">
-  <ul class="pagination">
+  <ul class="pagination justify-content-center">
     <% if (startPage > maxPage) { %>
     <li class="page-item">
       <a
@@ -83,7 +83,7 @@
     </li>
     <% } %> <% for ( i = startPage; i <= endPage ;i++) { %>
     <li class="page-item">
-      <a class="page-link" href="/campgrounds/?page=<%= i %>"><%=i %></a>
+      <a class="page-link <%= currentPage === i && "active" %>" href="/campgrounds/?page=<%= i %>"><%=i %></a>
     </li>
     <% } %> <% if (endPage < totalPage ) { %>
     <li class="page-item">

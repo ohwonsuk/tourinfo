@@ -41,7 +41,14 @@ module.exports.index = async (req, res) => {
     totalPage,
     currentPage,
   } = pagingFunc(page, totalList);
-  console.log("startPgae:", startPage, "tatalPage:", totalPage);
+  console.log(
+    "startPgae:",
+    startPage,
+    "tatalPage:",
+    totalPage,
+    "currentPage:",
+    currentPage
+  );
   const campgrounds = await Tourinfo.find({}).skip(hideList).limit(maxList);
   const campgroundsAll = await Tourinfo.find({});
 
