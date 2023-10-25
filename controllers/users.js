@@ -6,10 +6,13 @@ module.exports.renderRegister = (req, res) => {
 
 module.exports.register = async (req, res) => {
   try {
-    const { userid, email, username, password } = req.body;
-    console.log(req.body);
+    const { userid, email, username, password1, password2 } = req.body;
+    console.log("req.body", username, password1, password2);
+    if (password1 != password2) {
+      throw new Error("비밀번호가 일치하지 않습니다.");
+    }
     const user = new User({ userid, email, username });
-    const registerdUser = await User.register(user, password);
+    const registerdUser = await User.register(user, password1);
     req.login(registerdUser, (err) => {
       if (err) return next(err);
       req.flash("success", "Welcome to Tourinfo");
