@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const sights = require("./sights");
-const { descriptors, places } = require("./seedHelpers");
+const gallery = require("./gallery");
 const Tourinfo = require("../models/campground");
 
 mongoose.connect("mongodb://127.0.0.1:27017/tourinfo", {

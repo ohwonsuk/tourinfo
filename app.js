@@ -16,6 +16,7 @@ const User = require("./models/user.js");
 const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
 const MongoStore = require("connect-mongo");
+const cors = require("cors");
 
 const userRoutes = require("./routes/users.js");
 const campgroundRoutes = require("./routes/campgrounds.js");
@@ -79,8 +80,13 @@ const sesseionConfig = {
 };
 app.use(session(sesseionConfig));
 app.use(flash());
-app.use(helmet());
-
+app.use(cors());
+// app.use(helmet());
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false,
+  })
+);
 // helmet에 사용시 외부 사이트 사전 등록 필요
 
 const scriptSrcUrls = [
@@ -122,6 +128,7 @@ app.use(
         "data:",
         "https://res.cloudinary.com/dc2gmdv7u/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT!
         "https://images.unsplash.com",
+        "https://tong.visitkorea.or.kr/",
       ],
       fontSrc: ["'self'", ...fontSrcUrls],
     },

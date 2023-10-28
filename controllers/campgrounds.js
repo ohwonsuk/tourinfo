@@ -28,6 +28,7 @@ const cities = [
 ];
 
 module.exports.index = async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
   const page = Number(req.query.page);
   console.log("page:", page);
   const totalList = await Tourinfo.countDocuments({});
