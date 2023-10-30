@@ -36,7 +36,9 @@
     <div class="card mb-3">
       <div class="card-body">
         <h5 class="card-title"><%= campground.trrsrtNm %></h5>
-        <p class="card-text"><%= campground.trrsrtIntrcn %></p>
+        <p class="card-text" style="white-space: pre-line">
+          <%= campground.trrsrtIntrcn %>
+        </p>
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item text-muted"><%= campground.addr %></li>

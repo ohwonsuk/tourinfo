@@ -82,11 +82,7 @@ app.use(session(sesseionConfig));
 app.use(flash());
 app.use(cors());
 // app.use(helmet());
-app.use(
-  helmet({
-    crossOriginResourcePolicy: false,
-  })
-);
+app.use(helmet());
 // helmet에 사용시 외부 사이트 사전 등록 필요
 
 const scriptSrcUrls = [
