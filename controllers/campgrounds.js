@@ -1,6 +1,7 @@
 const Tourinfo = require("../models/campground");
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapBoxToken = process.env.MAPBOX_TOKEN;
+const openWeatherToken = process.env.OPENWEATHER_API;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const { cloudinary } = require("../cloudinary");
 const { getYmd10 } = require("../utils/dateFormatter");
@@ -28,7 +29,6 @@ const cities = [
 ];
 
 module.exports.index = async (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
   const page = Number(req.query.page);
   console.log("page:", page);
   const totalList = await Tourinfo.countDocuments({});
@@ -106,11 +106,36 @@ module.exports.showCampground = async (req, res) => {
     })
     .populate("author");
   console.log("showCampground", campground);
+  const lat = campground.geometry.coordinates[1];
+  const lon = campground.geometry.coordinates[0];
+
+  // openweather api 통해서 관광지위치의 현재 날씨정보 불러오기
+  const response = await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${openWeatherToken}&lang=kr`
+  );
+  const data = await response.json();
+  const currTemp = Math.floor((data.main.temp - 273.0) * 10) / 10;
+  const weatherType = data.weather[0].description;
+  const currTime = getYmd10(data.dt);
+  const iconUrl = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+  console.log("weather:", data);
+  console.log("temp:", currTemp);
+  console.log("날씨:", weatherType);
+  console.log("기준시간:", getYmd10(data.dt));
+  console.log("아이콘", iconUrl);
+
   if (!campground) {
     req.flash("error", "Cannot find that campground");
     return res.redirect("/campgrounds");
   }
-  res.render("campgrounds/show", { campground, getYmd10 }); // 날짜 포맷 변경위해 함수 같이 넘김
+  res.render("campgrounds/show", {
+    campground,
+    weatherType,
+    currTemp,
+    currTime,
+    iconUrl,
+    getYmd10,
+  }); // 날짜 포맷 변경위해 함수 같이 넘김
 };
 
 module.exports.renderEditForm = async (req, res) => {

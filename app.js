@@ -124,7 +124,8 @@ app.use(
         "data:",
         "https://res.cloudinary.com/dc2gmdv7u/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT!
         "https://images.unsplash.com",
-        "https://tong.visitkorea.or.kr/",
+        "http://tong.visitkorea.or.kr",
+        "https://openweathermap.org",
       ],
       fontSrc: ["'self'", ...fontSrcUrls],
     },
