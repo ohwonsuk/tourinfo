@@ -16,7 +16,7 @@ const User = require("./models/user.js");
 const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
 const MongoStore = require("connect-mongo");
-const cors = require("cors");
+// const cors = require("cors");
 
 const userRoutes = require("./routes/users.js");
 const campgroundRoutes = require("./routes/campgrounds.js");
@@ -80,8 +80,7 @@ const sesseionConfig = {
 };
 app.use(session(sesseionConfig));
 app.use(flash());
-app.use(cors());
-// app.use(helmet());
+// app.use(cors());
 app.use(helmet());
 // helmet에 사용시 외부 사이트 사전 등록 필요
 
@@ -140,15 +139,6 @@ passort.use(User.createStrategy());
 // username, password 두개만 사용 경우
 passort.serializeUser(User.serializeUser());
 passort.deserializeUser(User.deserializeUser());
-
-// passort.serializeUser(function (user, done) {
-//   console.log("serializeUser", user);
-//   done(null, user);
-// });
-// passort.deserializeUser(function (id, done) {
-//   console.log("deserializeUser", id);
-//   done(null, id);
-// });
 
 // req.locals 요청-응답 사이클에서 데이터를 애플리케이션에 전달할 수 있는 오브젝트로
 // 이 오브젝트로 저장된 변수는 템플릿 및 다른 미들웨어 함수가 접근할 수 있음.
