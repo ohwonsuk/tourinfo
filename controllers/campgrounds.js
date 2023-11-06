@@ -109,12 +109,12 @@ module.exports.showCampground = async (req, res) => {
   const lat = campground.geometry.coordinates[1];
   const lon = campground.geometry.coordinates[0];
 
-  // openweather api 통해서 관광지위치의 현재 날씨정보 불러오기
+  // openweather api 통해서 관광지위치의 현재 날씨정보 불러오기, units ℃ 표시
   const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${openWeatherToken}&lang=kr`
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${openWeatherToken}&lang=kr&units=metric`
   );
   const data = await response.json();
-  const currTemp = Math.floor((data.main.temp - 273.0) * 10) / 10;
+  const currTemp = Math.round(data.main.temp * 10) / 10;
   const weatherType = data.weather[0].description;
   const currTime = getYmd10(data.dt);
   const iconUrl = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;

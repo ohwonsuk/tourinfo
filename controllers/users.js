@@ -24,6 +24,30 @@ module.exports.register = async (req, res) => {
   }
 };
 
+module.exports.renderUserEdit = async (req, res) => {
+  const { userid } = req.params;
+  console.log("renderUserEdit", userid);
+  const user = await User.findOne({ userid: userid });
+  console.log("edituser:", user);
+  if (!user) {
+    req.flash("error", "Cannot find the user");
+    return res.redirect("users/login");
+  }
+  res.render("users/useredit", { user });
+};
+
+module.exports.updateUser = async (req, res) => {
+  const { userid } = req.params;
+  console.log("id", userid);
+  console.log("updateUser", req.body);
+  const user = await User.findByIdAndUpdate(userid, {
+    ...req.body,
+  });
+  await user.save();
+  req.flash("success", "Successfully updated user!");
+  res.redirect(`/campgrounds/page=1`);
+};
+
 module.exports.renderLogin = (req, res) => {
   res.render("users/login");
 };
