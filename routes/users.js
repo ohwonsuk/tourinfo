@@ -12,7 +12,7 @@ router
   .post(catchAsync(users.register));
 
 router
-  .route("/:userid")
+  .route("/mypage/:id")
   .get(isLoggedIn, catchAsync(users.renderUserEdit))
   .put(catchAsync(users.updateUser));
 // .delete(isLoggedIn, isAuthor, catchAsync(users.deleteCampground));
