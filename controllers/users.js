@@ -45,40 +45,22 @@ module.exports.updateUser = async (req, res) => {
     }
     const user = await User.findOne({ userid: userid });
     console.log("user:", user);
-    user
-      .updateOne({
-        username: username,
-        email: email,
-        password: password1,
-      })
-      .then(() => {
-        user.save();
-        req.flash("success", "Successfully updated user!");
-        res.redirect("/campgrounds/?page=1");
-      });
-    // const registerdUser = await User.register(user, password1);
-    // req.login(registerdUser, (err) => {
-    //   if (err) return next(err);
-    //   req.flash("success", "Successfully updated user!");
-    //   res.redirect("/campgrounds/?page=1");
-    // });
+    await user.updateOne({
+      username: username,
+      email: email,
+    });
+    await user.setPassword(password1);
+    console.log("updateuser:", user);
+    user.save();
+    req.flash("success", "Successfully updated user!");
+    const redirectUrl = res.locals.returnTo || "/campgrounds/?page=1";
+    console.log("rediretUrl", redirectUrl);
+    res.redirect(redirectUrl);
   } catch (e) {
     req.flash("error", e.message);
     res.redirect("/campgrounds/?page=1");
   }
 };
-//   const { userid } = req.params;
-//   const { username, password1 } = req.body;
-//   console.log("id", userid);
-//   console.log("updateUser", req.body);
-//   const user = await User.findByIdAndUpdate(userid, {
-//     username,
-//     password1,
-//   });
-//   await user.save();
-//   req.flash("success", "Successfully updated user!");
-//   res.redirect(`/campgrounds/page=1`);
-// };
 
 module.exports.renderLogin = (req, res) => {
   res.render("users/login");

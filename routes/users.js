@@ -14,7 +14,7 @@ router
 router
   .route("/mypage/:id")
   .get(isLoggedIn, catchAsync(users.renderUserEdit))
-  .put(catchAsync(users.updateUser));
+  .put(storeReturnTo, catchAsync(users.updateUser));
 // .delete(isLoggedIn, isAuthor, catchAsync(users.deleteCampground));
 
 // router.get("/:userid/edit", isLoggedIn, catchAsync(user.renderUserEdit));
