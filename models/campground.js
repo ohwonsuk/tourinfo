@@ -25,7 +25,9 @@ const TourinfoSchema = new Schema(
       type: String,
       enum: ["관광지", "관광단지", "축제행사", "음식점", "숙박"],
     }, // 관광지구분
-    images: [ImageSchema],
+    images: [ImageSchema], // 사용자 등록 이미지
+    imageURL: String, // 외부 이미지 사용 (23/12/4)
+    homepageURL: String, // 업소 소개 웹페이지 (23/12/4)
     geometry: {
       type: {
         type: String, // Don't do `{ location: { type: String } }`
@@ -37,7 +39,7 @@ const TourinfoSchema = new Schema(
         // required: true,
       },
     },
-    city: String,
+    city: String, // 시도
     addr: String, // 소재지주소
     ar: Number, // 면적
     cnvnncFclty: String, // 공공편익시설정보
@@ -54,6 +56,7 @@ const TourinfoSchema = new Schema(
     institutionNm: String, // 관리기관명
     referenceDate: String, // 데이터기준일자
     instt_code: String, // 관리기관코드
+    itemSource: String, // 정보원천 (23/12/4)
     author: {
       type: Schema.Types.ObjectId,
       ref: "User",

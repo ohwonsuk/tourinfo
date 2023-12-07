@@ -109,6 +109,21 @@ module.exports.showCampground = async (req, res) => {
   const lat = campground.geometry.coordinates[1];
   const lon = campground.geometry.coordinates[0];
 
+  // show page에 표출할 이미지 목록을 리스트로 저장하기
+  // imageURL 과 사용자 등록한 image 전체를 합침
+  const imageList = [];
+  if (campground.imageURL) {
+    imageList.push(campground.imageURL);
+    campground.images.forEach((img, i) => {
+      imageList.push(img.url);
+    });
+  } else {
+    campground.images.forEach((img, i) => {
+      imageList.push(img.url);
+    });
+  }
+  console.log("imageList", imageList);
+
   // openweather api 통해서 관광지위치의 현재 날씨정보 불러오기, units ℃ 표시
   const response = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${openWeatherToken}&lang=kr&units=metric`
@@ -130,6 +145,7 @@ module.exports.showCampground = async (req, res) => {
   }
   res.render("campgrounds/show", {
     campground,
+    imageList,
     weatherType,
     currTemp,
     currTime,

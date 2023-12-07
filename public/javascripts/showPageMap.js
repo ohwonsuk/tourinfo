@@ -12,7 +12,7 @@ new mapboxgl.Marker()
   .setLngLat(campground.geometry.coordinates)
   .setPopup(
     new mapboxgl.Popup({ offset: 25 }).setHTML(
-      `<h3>${campground.trrsrtNm}</h3><p>${campground.rdnmadr}</p>`
+      `<h3>${campground.trrsrtNm}</h3><p>${campground.addr}</p>`
     )
   )
   .addTo(map);

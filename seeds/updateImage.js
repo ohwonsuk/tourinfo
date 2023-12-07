@@ -27,8 +27,8 @@ const updateDb = async () => {
     if (tourfind) {
       // const tour = await Tourinfo.findById({ id: tourfind._id });
       console.log("galleryimageurl:", gallery[i].galWebImageUrl);
-      tourfind.images[0].url = gallery[i].galWebImageUrl;
-      console.log("tourimage", tourfind.images[0].url);
+      tourfind.imageURL = gallery[i].galWebImageUrl;
+      console.log("tourimage", tourfind.imagURL);
       await tourfind.save();
     }
   }

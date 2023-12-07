@@ -21,7 +21,7 @@ const seedDb = async () => {
   for (let i = 0; i < 962; i++) {
     const tour = new Tourinfo({
       // your user id
-      author: "65210e36192a52f9b19f5e5b",
+      author: "656dd9f88177595b554387f3",
       trrsrtNm: sights[i].관광지명,
       trrsrtSe: sights[i].관광지구분,
       trrsrtIntrcn: sights[i].관광지소개,
@@ -40,14 +40,11 @@ const seedDb = async () => {
       },
       images: [
         {
-          url: "https://res.cloudinary.com/dc2gmdv7u/image/upload/v1695654534/PeterCamp/sqnmilr50vyebvthvxmm.jpg",
-          filename: "PeterCamp/sqnmilr50vyebvthvxmm",
-        },
-        {
-          url: "https://res.cloudinary.com/dc2gmdv7u/image/upload/v1695654536/PeterCamp/qvvjigxibrgthrgsdwo0.jpg",
-          filename: "PeterCamp/qvvjigxibrgthrgsdwo0",
+          url: "https://res.cloudinary.com/dc2gmdv7u/image/upload/v1701705414/PeterCamp/tourinfologo_djpt2r.png",
+          filename: "PeterCamp/toruinfologo_mmuldg",
         },
       ],
+      itemSource: "전국관광지정보표준데이터",
     });
     await tour.save();
   }

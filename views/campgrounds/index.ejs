@@ -29,7 +29,13 @@
 <div class="card mb-3">
   <div class="row">
     <div class="col-md-4">
-      <% if(campground.images.length) { %>
+      <% if(campground.imageURL) { %>
+        <img
+          class="img-fluid"
+          src="<%= campground.imageURL %>"
+          alt=""
+        />
+      <% } else if(campground.images.length) { %>
       <img
         class="img-fluid"
         src="<%= campground.images[0].url %>"
@@ -38,7 +44,7 @@
       <% } else { %>
       <img
         class="img-fluid"
-        src="https://res.cloudinary.com/dc2gmdv7u/image/upload/v1695652195/PeterCamp/xvn0ax7patuy8o74oy5d.jpg"
+        src="https://res.cloudinary.com/dc2gmdv7u/image/uploadw_200/v1701705414/PeterCamp/tourinfologo_djpt2r.png"
         alt=""
       />
       <% } %>
