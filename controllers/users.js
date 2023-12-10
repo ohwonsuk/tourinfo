@@ -15,7 +15,7 @@ module.exports.register = async (req, res) => {
     const registerdUser = await User.register(user, password1);
     req.login(registerdUser, (err) => {
       if (err) return next(err);
-      req.flash("success", "Welcome to Tourinfo");
+      req.flash("success", `${username}님 환영합니다.`);
       res.redirect("/campgrounds/?page=1");
     });
   } catch (e) {
@@ -52,7 +52,7 @@ module.exports.updateUser = async (req, res) => {
     await user.setPassword(password1);
     console.log("updateuser:", user);
     user.save();
-    req.flash("success", "Successfully updated user!");
+    req.flash("success", "성공적으로 정보가 수정되었습니다.");
     const redirectUrl = res.locals.returnTo || "/campgrounds/?page=1";
     console.log("rediretUrl", redirectUrl);
     res.redirect(redirectUrl);
@@ -67,7 +67,8 @@ module.exports.renderLogin = (req, res) => {
 };
 
 module.exports.login = (req, res) => {
-  req.flash("success", "Welcome back!");
+  console.log("req", req.body);
+  req.flash("success", `${req.body.userid}님 반갑습니다.`);
   const redirectUrl = res.locals.returnTo || "/campgrounds/?page=1";
   console.log("rediretUrl", redirectUrl);
   res.redirect(redirectUrl);
@@ -78,7 +79,7 @@ module.exports.logout = (req, res, next) => {
     if (err) {
       return next(err);
     }
-    req.flash("success", "Goodbye!");
+    req.flash("success", "로그아웃 되었습니다.");
     res.redirect("/campgrounds/?page=1");
   });
 };

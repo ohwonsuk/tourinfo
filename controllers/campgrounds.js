@@ -75,7 +75,7 @@ module.exports.renderNewForm = (req, res) => {
 module.exports.createCampground = async (req, res) => {
   console.log("createCampground", req.body);
   if (!req.body.campground)
-    throw new ExpressError("Invalid Campground Data", 400);
+    throw new ExpressError("입력한 데이터가 없습니다. 다시 입력해주세요.", 400);
   const geoData = await geocoder
     .forwardGeocode({
       query: req.body.campground.addr,
@@ -169,7 +169,7 @@ module.exports.showCampground = async (req, res) => {
   console.log("아이콘", iconUrl);
 
   if (!campground) {
-    req.flash("error", "Cannot find that campground");
+    req.flash("error", "데이터를 찾을 수 없습니다.");
     return res.redirect("/campgrounds");
   }
   res.render("campgrounds/show", {
@@ -188,7 +188,7 @@ module.exports.renderEditForm = async (req, res) => {
   console.log("renderEditForm", req.params);
   const campground = await Tourinfo.findById(id);
   if (!campground) {
-    req.flash("error", "Cannot find that campground");
+    req.flash("error", "데이터를 찾을 수 없습니다.");
     return res.redirect("/campgrounds");
   }
   res.render("campgrounds/edit", { campground, cities, categories });
@@ -217,14 +217,14 @@ module.exports.updateCampground = async (req, res) => {
     });
     console.log("updateCampground-save:", campground);
   }
-  req.flash("success", "Successfully updated campground!");
+  req.flash("success", "정상적으로 데이터가 수정되었습니다.");
   res.redirect(`/campgrounds/${campground._id}`);
 };
 
 module.exports.deleteCampground = async (req, res) => {
   const { id } = req.params;
   await Tourinfo.findByIdAndDelete(id);
-  req.flash("success", "Successfully deleted campground!");
+  req.flash("success", "데이터 삭제가 완료되었습니다.");
   res.redirect("/campgrounds/?page=1");
 };
 
