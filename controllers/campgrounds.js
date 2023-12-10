@@ -83,8 +83,29 @@ module.exports.createCampground = async (req, res) => {
       language: ["kr"],
     })
     .send();
+  // console.log("geoData", geoData.body.features[0].geometry);
+
+  // 지도에서 입력받은 좌표값을 소숫점 6자리 숫자 배열로 전환
+  // console.log("geocoord", req.body.campground.geocoord);
+  const geoCoord = req.body.campground.geocoord
+    .split(",")
+    .map((i) => Number(i).toFixed(6));
+  const newGeoCoord = geoCoord.map((i) => Number(i));
+  console.log("geoCoord", newGeoCoord);
+  // console.log("geoCoordtype", typeof newGeoCoord[0]);
+  const mapGeoData = {
+    type: "Point",
+    coordinates: newGeoCoord,
+  };
+  console.log("mapGeoData", mapGeoData);
   const campground = new Tourinfo(req.body.campground);
-  campground.geometry = geoData.body.features[0].geometry;
+
+  // 지도로 입력한 좌표를 우선적용
+  if (newGeoCoord.length > 0) {
+    campground.geometry = mapGeoData;
+  } else {
+    campground.geometry = geoData.body.features[0].geometry;
+  }
   campground.images = req.files.map((f) => ({
     url: f.path,
     filename: f.filename,

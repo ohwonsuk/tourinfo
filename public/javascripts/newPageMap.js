@@ -2,8 +2,8 @@ mapboxgl.accessToken = mapToken;
 const map = new mapboxgl.Map({
   container: "map", // container ID
   style: "mapbox://styles/mapbox/streets-v12", // style URL
-  center: [127.4914411, 36.6358351], // starting position [lng, lat]
-  zoom: 9, // starting zoom
+  center: [126.978433, 37.56669], // starting position [lng, lat]
+  zoom: 10, // starting zoom
 });
 
 // Add the control to the map.
@@ -27,6 +27,10 @@ map.on("click", (e) => {
   new mapboxgl.Marker()
     .setLngLat([geometryData.lng, geometryData.lat])
     .addTo(map);
+  document.getElementById("geocoord").value = [
+    geometryData.lng,
+    geometryData.lat,
+  ];
 });
 
 mapboxgl.setRTLTextPlugin(

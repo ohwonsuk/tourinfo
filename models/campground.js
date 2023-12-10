@@ -28,6 +28,7 @@ const TourinfoSchema = new Schema(
     images: [ImageSchema], // 사용자 등록 이미지
     imageURL: String, // 외부 이미지 사용 (23/12/4)
     homepageURL: String, // 업소 소개 웹페이지 (23/12/4)
+    geocoord: String,
     geometry: {
       type: {
         type: String, // Don't do `{ location: { type: String } }`

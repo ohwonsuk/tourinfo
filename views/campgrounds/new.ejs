@@ -98,6 +98,18 @@
         ></textarea>
         <div class="valid-feedback">Looks good!</div>
       </div>
+
+      <div id="map" class="mb-3"></div>
+      <div class="mb-3">
+        <label class="form-label" for="geocoord">위치(선택)</label>
+        <input
+          class="form-control"
+          type="text"
+          name="campground[geocoord]"
+          id="geocoord"
+          readonly
+        />
+      </div>
       <div class="mb-3">
         <div class="input-group mb-3">
           <input
@@ -110,7 +122,6 @@
           <label class="input-group-text" for="image">업로드</label>
         </div>
       </div>
-      <div id="map" class="mb-3"></div>
       <div class="mb-3">
         <button class="btn btn-success">저장하기</button>
       </div>
