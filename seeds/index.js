@@ -40,8 +40,8 @@ const seedDb = async () => {
       },
       images: [
         {
-          url: "https://res.cloudinary.com/dc2gmdv7u/image/upload/v1701705414/PeterCamp/tourinfologo_djpt2r.png",
-          filename: "PeterCamp/toruinfologo_mmuldg",
+          url: "https://res.cloudinary.com/dc2gmdv7u/image/upload/v1702194458/PeterCamp/tourinfologo_f9mf2a.png",
+          filename: "tourinfologo_f9mf2a",
         },
       ],
       itemSource: "전국관광지정보표준데이터",

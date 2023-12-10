@@ -33,7 +33,7 @@ module.exports.campgroundSchema = Joi.object({
     addr: Joi.string().required().escapeHTML(),
     city: Joi.string().escapeHTML(),
     trrsrtIntrcn: Joi.string().required().escapeHTML(),
-    geocoord: Joi.string().escapeHTML(),
+    geocoord: Joi.string().allow(""),
   }).required(),
   deleteImages: Joi.array(),
 });

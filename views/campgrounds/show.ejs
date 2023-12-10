@@ -42,13 +42,18 @@
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item text-muted"><%= campground.addr %></li>
-        <li class="list-group-item">
-          작성자 : <%= campground.author.username %>
-        </li>
+
         <li class="list-group-item">
           [관리기관] <%= campground.institutionNm %>
         </li>
+        <li class="list-group-item text-muted">
+          [작성일자] <%= campground.referenceDate %>
+        </li>
+        <li class="list-group-item">
+          작성자 : <%= campground.author.username %>
+        </li>
       </ul>
+
       <% if (currentUser && campground.author.equals(currentUser._id)) { %>
       <div class="card-body">
         <a
@@ -65,9 +70,6 @@
         </form>
       </div>
       <% } %>
-      <div class="card-footer text-muted">
-        [작성일자] <%= campground.referenceDate %>
-      </div>
     </div>
   </div>
   <!-- 리뷰입력창 만들기 -->

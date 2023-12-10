@@ -83,33 +83,41 @@ module.exports.createCampground = async (req, res) => {
       language: ["kr"],
     })
     .send();
-  // console.log("geoData", geoData.body.features[0].geometry);
+  console.log("geoData", geoData.body.features[0].geometry);
 
-  // 지도에서 입력받은 좌표값을 소숫점 6자리 숫자 배열로 전환
-  // console.log("geocoord", req.body.campground.geocoord);
-  const geoCoord = req.body.campground.geocoord
-    .split(",")
-    .map((i) => Number(i).toFixed(6));
-  const newGeoCoord = geoCoord.map((i) => Number(i));
-  console.log("geoCoord", newGeoCoord);
-  // console.log("geoCoordtype", typeof newGeoCoord[0]);
-  const mapGeoData = {
-    type: "Point",
-    coordinates: newGeoCoord,
-  };
-  console.log("mapGeoData", mapGeoData);
   const campground = new Tourinfo(req.body.campground);
 
-  // 지도로 입력한 좌표를 우선적용
-  if (newGeoCoord.length > 0) {
+  // 지도에서 입력받은 좌표값을 소숫점 6자리 숫자 배열로 전환
+  console.log("geocoord", !req.body.campground.geocoord);
+  if (req.body.campground.geocoord) {
+    const geoCoord = req.body.campground.geocoord
+      .split(",")
+      .map((i) => Number(i).toFixed(6));
+    const newGeoCoord = geoCoord.map((i) => Number(i));
+    console.log("geoCoord", newGeoCoord);
+    // console.log("geoCoordtype", typeof newGeoCoord[0]);
+    const mapGeoData = {
+      type: "Point",
+      coordinates: newGeoCoord,
+    };
+    console.log("mapGeoData", mapGeoData);
+    // 지도로 입력한 좌표를 우선적용
     campground.geometry = mapGeoData;
   } else {
     campground.geometry = geoData.body.features[0].geometry;
   }
-  campground.images = req.files.map((f) => ({
-    url: f.path,
-    filename: f.filename,
-  }));
+  console.log("isImagefile", req.files);
+  if (req.files.length > 0) {
+    campground.images = req.files.map((f) => ({
+      url: f.path,
+      filename: f.filename,
+    }));
+  } else {
+    campground.images = {
+      url: "https://res.cloudinary.com/dc2gmdv7u/image/upload/v1702194458/PeterCamp/tourinfologo_f9mf2a.png",
+      filename: "tourinfologo_f9mf2a",
+    };
+  }
   campground.author = req.user._id;
   console.log("createCampground", campground);
   await campground.save();

@@ -22,7 +22,7 @@ map.on("click", (e) => {
   console.log("e", e);
   const coord = JSON.stringify(e.lngLat);
   const geometryData = JSON.parse(coord);
-  console.log("lng", geometryData.lng);
+  // console.log("lng", geometryData.lng);
   console.log("coord", coord);
   new mapboxgl.Marker()
     .setLngLat([geometryData.lng, geometryData.lat])
