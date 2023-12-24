@@ -125,6 +125,7 @@ app.use(
         "https://images.unsplash.com",
         "http://tong.visitkorea.or.kr",
         "https://openweathermap.org",
+        "*", // 모든 이미지 경로 허용 (imageURL 사용 목적, 23/12/24)
       ],
       fontSrc: ["'self'", ...fontSrcUrls],
     },

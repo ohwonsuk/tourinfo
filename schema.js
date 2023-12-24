@@ -35,6 +35,7 @@ module.exports.campgroundSchema = Joi.object({
     trrsrtIntrcn: Joi.string().required().escapeHTML(),
     geocoord: Joi.string().allow(""), // null 값 허용
     homepageURL: Joi.string().allow(""), // null 값 허용
+    imageURL: Joi.string().allow(""),
   }).required(),
   deleteImages: Joi.array(),
 });

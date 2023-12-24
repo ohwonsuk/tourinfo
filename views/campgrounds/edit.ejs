@@ -112,6 +112,17 @@
         <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
+        <label class="form-label" for="imageLink">사진링크등록</label>
+        <input
+          class="form-control"
+          type="text"
+          name="campground[imageURL]"
+          id="imageLink"
+          value="<%= campground.imageURL %>"
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>      
+      <div class="mb-3">
         <div class="input-group mb-3">
           <input
             type="file"
